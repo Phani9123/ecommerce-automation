@@ -1,4 +1,5 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 
@@ -79,11 +80,17 @@ class CheckoutPage(BasePage):
         self.click(
             self.continue_button
         )
+        
+    def wait_for_checkout_overview(self):
+        self.wait.until(
+            EC.visibility_of_element_located(
+                self.finish_button
+            )
+        )
 
     def finish_order(self):
-        self.click(
-            self.finish_button
-        )
+        self.wait_for_checkout_overview()
+        self.click(self.finish_button)
 
     def get_success_message(self):
         return self.get_text(
