@@ -50,10 +50,17 @@ class CheckoutPage(BasePage):
             "h3[data-test='error']"
         )
 
-    def click_checkout(self):
-        self.click(
-            self.checkout_button
+
+    def wait_for_checkout_information(self):
+        self.wait.until(
+            EC.visibility_of_element_located(
+                self.first_name
+            )
         )
+    
+    def click_checkout(self):
+        self.click(self.checkout_button)
+        self.wait_for_checkout_information()
 
     def enter_customer_details(
         self,
@@ -91,6 +98,8 @@ class CheckoutPage(BasePage):
     def finish_order(self):
         self.wait_for_checkout_overview()
         self.click(self.finish_button)
+        
+    
 
     def get_success_message(self):
         return self.get_text(
