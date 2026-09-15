@@ -60,7 +60,7 @@ class LoginPage(BasePage):
         self.enter_password(password)
         self.click_login()
 
-        WebDriverWait(self.driver, 10).until(
+        self.wait.until(
             lambda driver:
                 "inventory" in driver.current_url
                 or len(driver.find_elements(*self.error_message)) > 0

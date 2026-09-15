@@ -1,6 +1,7 @@
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
+
 from pages.base_page import BasePage
 
 
@@ -35,11 +36,21 @@ class ProductsPage(BasePage):
                 self.product_items
             )
         )
+        
+    def wait_for_products_page(self):
+        self.wait.until(
+            EC.visibility_of_element_located(
+                self.product_items
+            )
+        )
 
     def add_backpack_to_cart(self):
+        self.wait_for_products_page()
         self.click(self.backpack_add_button)
-
+        
     def get_product_count(self):
+        self.wait_for_products_page()
+
         return len(
             self.driver.find_elements(
                 *self.product_items

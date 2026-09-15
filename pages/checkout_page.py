@@ -84,9 +84,7 @@ class CheckoutPage(BasePage):
         )
 
     def click_continue(self):
-        self.click(
-            self.continue_button
-        )
+        self.click(self.continue_button)
         
     def wait_for_checkout_overview(self):
         self.wait.until(
@@ -98,7 +96,7 @@ class CheckoutPage(BasePage):
     def finish_order(self):
         self.wait_for_checkout_overview()
         self.click(self.finish_button)
-        
+            
     
 
     def get_success_message(self):
