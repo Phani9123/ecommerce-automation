@@ -26,7 +26,17 @@ def driver(request):
     browser = request.config.getoption("--browser")
 
     if browser == "chrome":
-        driver = webdriver.Chrome()
+
+        options = webdriver.ChromeOptions()
+
+        if os.getenv("CI"):
+            options.add_argument("--headless")
+            options.add_argument("--no-sandbox")
+            options.add_argument("--disable-dev-shm-usage")
+
+        driver = webdriver.Chrome(
+            options=options
+        )
 
     elif browser == "firefox":
         driver = webdriver.Firefox()
