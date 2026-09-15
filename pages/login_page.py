@@ -1,4 +1,6 @@
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 
 from pages.base_page import BasePage
 from config.config import LOGIN_URL
@@ -57,6 +59,12 @@ class LoginPage(BasePage):
         self.enter_username(username)
         self.enter_password(password)
         self.click_login()
+
+        WebDriverWait(self.driver, 10).until(
+            lambda driver:
+                "inventory" in driver.current_url
+                or len(driver.find_elements(*self.error_message)) > 0
+        )
 
     def get_error_message(self):
         return self.get_text(
