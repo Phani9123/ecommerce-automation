@@ -1,0 +1,12 @@
+[
+    {
+        "username": "standard_user",
+        "password": "secret_sauce",
+        "expected_url_part": "inventory"
+    },
+    {
+        "username": "wrong_user",
+        "password": "wrong_password",
+        "expected_error": "Epic sadface: Username and password do not match any user in this service"
+    }
+]
