@@ -45,11 +45,9 @@ def test_login_add_product_and_complete_order(login_page):
         CHECKOUT_DATA["postal_code"]
     )
 
-    # 6. Continue
     checkout_page.click_continue()
-
-    # 7. Complete order
+    checkout_page.wait_for_checkout_overview()
     checkout_page.finish_order()
-
+    
     # 8. Verify order confirmation
     assert checkout_page.get_success_message() == "Thank you for your order!"

@@ -31,7 +31,12 @@ class CartPage(BasePage):
 
     def wait_for_cart(self):
         self.wait.until(
-            EC.url_contains("cart")
+            EC.any_of(
+                EC.url_contains("cart"),
+                EC.visibility_of_element_located(
+                    self.backpack_item
+                )
+            )
         )
         
     def open_cart(self):
@@ -51,6 +56,10 @@ class CartPage(BasePage):
         ) > 0
 
     def remove_backpack(self):
-        self.click(
-            self.backpack_remove_button
+        self.click(self.backpack_remove_button)
+
+        self.wait.until(
+            EC.invisibility_of_element_located(
+                self.backpack_item
+            )
         )

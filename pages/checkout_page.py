@@ -85,13 +85,36 @@ class CheckoutPage(BasePage):
 
     def click_continue(self):
         self.click(self.continue_button)
-        
+
+
     def wait_for_checkout_overview(self):
+        self.wait.until(
+            EC.url_contains("checkout-step-two")
+        )
+
         self.wait.until(
             EC.visibility_of_element_located(
                 self.finish_button
             )
         )
+
+
+    def wait_for_checkout_error(self):
+        self.wait.until(
+            EC.visibility_of_element_located(
+                self.error_message
+            )
+        )
+        
+    def wait_for_checkout_result(self):
+        self.wait.until(
+            EC.any_of(
+                EC.visibility_of_element_located(self.error_message),
+                EC.element_to_be_clickable(self.finish_button)
+            )
+        )
+            
+            
 
     def finish_order(self):
         self.wait_for_checkout_overview()

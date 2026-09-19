@@ -34,12 +34,8 @@ def test_checkout_required_fields_validation(login_page):
 
     checkout_page.click_checkout()
 
-    # Continue without entering customer details
     checkout_page.click_continue()
+    checkout_page.wait_for_checkout_error()
 
-    # Verify validation error
-    assert (
-        checkout_page.get_error_message()
-        == "Error: First Name is required"
-    )
+    assert checkout_page.get_error_message() == "Error: First Name is required"
     
