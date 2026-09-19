@@ -15,10 +15,21 @@ class BasePage:
         )
 
     def click(self, locator):
-        element = self.wait.until(
-            EC.element_to_be_clickable(locator)
+        element = self.wait_for_visible(locator)
+
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center'});",
+            element
         )
-        element.click()
+
+        self.wait.until(
+            lambda driver: element.is_displayed() and element.is_enabled()
+        )
+
+        self.driver.execute_script(
+            "arguments[0].click();",
+            element
+        )
 
     def enter_text(self, locator, text):
         element = self.wait_for_visible(locator)
