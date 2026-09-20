@@ -33,6 +33,18 @@ class BasePage:
 
     def enter_text(self, locator, text):
         element = self.wait_for_visible(locator)
+
+        self.driver.execute_script(
+            "arguments[0].scrollIntoView({block: 'center'});",
+            element
+        )
+
+        self.wait.until(
+            lambda driver: element.is_displayed() and element.is_enabled()
+        )
+
+        element.click()
+        element.clear()
         element.send_keys(text)
 
     def get_text(self, locator):
